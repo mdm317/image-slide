@@ -1,0 +1,94 @@
+.App-wrapper {
+}
+.title {
+  font-size: 5rem;
+  font-weight: 900;
+  margin-bottom: 5rem;
+}
+
+.App-container {
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.image-wrapper {
+  box-shadow: 0 3px 18px 0 rgb(32 33 36 / 28%);
+  position: relative;
+  width: 80vw;
+  height: 270px;
+  overflow: hidden;
+  user-select: none;
+}
+.nav-button-left {
+  z-index: 3;
+  position: absolute;
+  left: 0;
+  top: 35%;
+  display: none;
+}
+.nav-button-right {
+  z-index: 3;
+  position: absolute;
+  right: 0;
+  top: 35%;
+}
+.image-list {
+  position: absolute;
+  display: flex;
+  transition-duration: 500ms;
+}
+.image-list:active {
+  cursor: grabbing;
+}
+.icon-item {
+  position: relative;
+  -webkit-user-drag: none;
+}
+.icon-item:not(:first-child) {
+  margin-left: 40px;
+}
+.icon-image {
+  border: 1px solid lightgray;
+  -webkit-user-drag: none;
+  width: 200px;
+  height: 200px;
+}
+.badge {
+  z-index: 3;
+  position: absolute;
+  margin-left: 1rem;
+}
+.badge-container {
+  position: relative;
+}
+.badge-icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: dimgrey;
+}
+.winner {
+  background-color: blue;
+}
+.badge-ranking {
+  position: absolute;
+  color: white;
+  font-size: larger;
+  font-weight: 600;
+  left: 0.5rem;
+}
+.image-title {
+  margin-top: 0.5rem;
+}
+.image-title:first-child {
+  margin-top: 0.8rem;
+  font-size: larger;
+  font-weight: 600;
+}
+.title:last-child {
+  font-size: medium;
+  font-weight: 300;
+  color: grey;
+}
