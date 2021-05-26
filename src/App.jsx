@@ -49,7 +49,7 @@ const makeDragEvent = (target, changeLeft) => {
   return { ref: target, onMouseDown, onMouseMove, onMouseLeave, onMouseUp };
 };
 
-const useSlide = (target, moveV, changeLeft) => {
+const useSlideByButton = (target, moveV, changeLeft) => {
   const slideEl = target;
   const leftEl = useRef(null);
   const rightEl = useRef(null);
@@ -106,14 +106,22 @@ const useSlide = (target, moveV, changeLeft) => {
     // }
   };
   return {
-    leftBtn: { ref: leftEl, onClick: handleLeftClick },
-    rightBtn: { ref: rightEl, onClick: handleRightClick },
+    LeftButton: (prop) => (
+      <button {...prop} ref={leftEl} onClick={handleLeftClick}>
+        {prop.children}
+      </button>
+    ),
+    RightButton: (prop) => (
+      <button {...prop} ref={rightEl} onClick={handleRightClick}>
+        {prop.children}
+      </button>
+    ),
     checkVisibleBtn,
   };
 };
-const useSlideX = () => {
+const useSlide = () => {
   const el = useRef();
-  const que = [];
+  const que = []; // 이미지 슬라이드의 움직임을 확인
   const changeLeft = (value) => {
     el.current.style.left = `${value}px`;
     if (que.length) {
@@ -123,9 +131,9 @@ const useSlideX = () => {
     }
   };
   const dragAction = makeDragEvent(el, changeLeft);
-  const slideAction = useSlide(el, 400, changeLeft);
-  que.push(slideAction.checkVisibleBtn);
-  return { target: el, dragAction, slideAction };
+  const slideButtons = useSlideByButton(el, 400, changeLeft);
+  que.push(slideButtons.checkVisibleBtn);
+  return { target: el, dragAction, slideButtons };
 };
 function App() {
   const [imageList, setimageList] = useState([]);
@@ -137,19 +145,17 @@ function App() {
   const {
     target,
     dragAction,
-    slideAction: { leftBtn, rightBtn },
-  } = useSlideX();
+    slideButtons: { LeftButton, RightButton },
+  } = useSlide();
   return (
     <div className="App-wrapper">
       <div className="App-container">
         <h1 class="title">IMAGE SLIDE</h1>
         <div className="image-wrapper">
-          <button {...leftBtn} className="nav-button-left">
-            ◀
-          </button>
-          <button {...rightBtn} className="nav-button-right">
-            ▶
-          </button>
+          <LeftButton className="nav-button-left">◀</LeftButton>
+          <RightButton className="nav-button-right">▶</RightButton>
+          {/* <button {...leftBtn} className="nav-button-left"></button>
+          <button {...rightBtn} className="nav-button-right"></button> */}
           <ul ref={target} {...dragAction} className="image-list">
             {imageList.map((image, i) => (
               <li key={i} className="icon-item">
